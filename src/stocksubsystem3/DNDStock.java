@@ -14,7 +14,7 @@ public class DNDStock
     private Stock stock;
 
     /**
-     * Sets the different stock levels for the different states.
+     * Sets the different stock level for the different states.
      * @param stockLevel sets the stock level for the transition of states
      * @param overflowLevel sets the overflow level for the transition of states 
      * @param maxStockLevel sets the max stock level
