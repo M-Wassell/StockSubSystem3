@@ -1,51 +1,123 @@
 package stocksubsystem3;
-
 /**
- *
+ * Represents DNDStock class.
+ * @author Michael Wassell
  * @author V8254888
+ * @author v8254888@live.tees.ac.uk
+ * @version 1.3
+ * @since 1.3
  */
 public class DNDStock 
 {
-    private int stockLevel,overflowLevel;// reason for the change of state, not going in interface
+    private int stockLevel,overflowLevel;
+    private final int maxStockLevel;
     private Stock stock;
-    
-//    private StockState stockState; setting stock state
-    
-    public DNDStock(int stockLevel, int overflowLevel)// instances of the state 
+
+    /**
+     * Sets the different stock levels for the different states.
+     * @param stockLevel sets the stock level for the transition of states
+     * @param overflowLevel sets the overflow level for the transition of states 
+     * @param maxStockLevel sets the max stock level
+     */
+    public DNDStock(int stockLevel, int overflowLevel, int maxStockLevel) 
     {
         this.stockLevel = stockLevel;
         this.overflowLevel = overflowLevel;
-        
-        if(stockLevel == 1000 && stockLevel <= 500 || overflowLevel < 5000 && overflowLevel >= 2000)
+        this.maxStockLevel = maxStockLevel;
+        if(stockLevel > 0)
         {
-            stock = new PickingState();
+            stock = new PickableState();
         }
-        else if(stockLevel < 499 && stockLevel > 300 || overflowLevel < 2000 && overflowLevel >= 1000)
+        else if(overflowLevel > 0)
         {
             stock = new RestockingState();
         }
-        else if(stockLevel < 299 || overflowLevel < 1000)
+        else
         {
             stock = new ReorderingState();
         }
     }
-    
-    public void pickStock()
+    /**
+     * Allows for input of an amount of stock to pick.
+     * @param stockPicked 
+     * @return stock.pickStock(this, stockPicked).
+     */
+    public boolean pickStock(int stockPicked)
     {
-        stock.pickStock();
+        return stock.pickStock(this, stockPicked);
     }
     
-    public void restock()
+    /**
+     * Method: restock().
+     * @return stock.restock(this)
+     */
+    public boolean restock()
     {
-        stock.restock();
+        return stock.restock(this);
     }
-
+    
+    /**
+     * Method: availableStock().
+     * @return stock.availableStock(this)
+     */
     public boolean availableStock()
     {
-        stock.availableStock();
-        
-        return false;
-        
+        return stock.availableStock(this);
+    }
+    
+    /**
+     * Getter: Gets the stock level.
+     * @return stockLevel
+     */
+    public int getStockLevel() {
+        return stockLevel;
+    }
+    
+    /**
+     * Getter: Gets overflow level.
+     * @return overflowLevel
+     */
+    public int getOverflowLevel() {
+        return overflowLevel;
+    }
+    /**
+     * Getter: Gets stock level.
+     * @return stock
+     */
+    public Stock getStock() {
+        return stock;
+    }
+    
+    /**
+     * Setter: Sets the stock.
+     * @param stock 
+     */
+    public void setStock(Stock stock) {
+        this.stock = stock;
+    }
+    
+    /**
+     * Setter: Sets stock level.
+     * @param stockLevel 
+     */
+    public void setStockLevel(int stockLevel) {
+        this.stockLevel = stockLevel;
+    }
+
+    /**
+     * Setter: Sets overflow level.
+     * @param overflowLevel 
+     */
+    public void setOverflowLevel(int overflowLevel) {
+        this.overflowLevel = overflowLevel;
+    }
+
+    /**
+     * Getter: Gets max stock level.
+     * @return maxStockLevel
+     */
+    public int getMaxStockLevel() {
+        return maxStockLevel;
     }
     
     
